@@ -7,17 +7,18 @@
         <span @click="isDeleteShow = false">完成</span>
       </div>
 
-      <van-icon v-else name="delete" @click="isDeleteShow = true" />
+      <van-icon v-else
+                name="delete"
+                @click="isDeleteShow = true" />
     </van-cell>
-    <van-cell
-      :title="history"
-      class="hiscell"
-      v-for="(history, index) in searchHistories"
-      :key="index"
-      @click="onDelete(history, index)"
-    >
-      <van-icon v-show="isDeleteShow" name="close"
-    /></van-cell>
+    <van-cell :title="history"
+              class="hiscell"
+              v-for="(history, index) in searchHistories"
+              :key="index"
+              @click="onDelete(history, index)">
+      <van-icon v-show="isDeleteShow"
+                name="close" />
+    </van-cell>
   </div>
 </template>
 
@@ -32,25 +33,28 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       isDeleteShow: false,
     };
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    onDelete(history, index) {
+    onDelete (history, index) {
       //删除状态 执行删除操作
       if (this.isDeleteShow) {
         this.searchHistories.splice(index, 1);
         // setItem("search-histories", this.searchHistories);
         return;
+      } else {
+        // console.log(history)
+        //非删除状态，展示搜索结果
+        this.$emit("search", history);
       }
-      //非删除状态，展示搜索结果
-      this.$emit("search", history);
+
     },
   },
 };

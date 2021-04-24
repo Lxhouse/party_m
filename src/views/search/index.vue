@@ -5,37 +5,32 @@
       Tips: 在 van-search 外层增加 form 标签，且 action 不为空，即可在 iOS 输入法中显示搜索按钮
      -->
     <form action="/">
-      <van-search
-        v-model="searchText"
-        show-action
-        placeholder="请输入搜索关键词"
-        background="#eb5253"
-        @search="onSearch(searchText)"
-        @cancel="onCancel"
-        @focus="isResultShow = false"
-      />
+      <van-search v-model="searchText"
+                  show-action
+                  placeholder="请输入搜索关键词"
+                  background="#eb5253"
+                  @search="onSearch(searchText)"
+                  @cancel="onCancel"
+                  @focus="isResultShow = false" />
     </form>
     <!-- /搜索栏 -->
 
     <!-- 搜索结果 -->
-    <search-result :search-text="searchText" v-if="isResultShow" />
+    <search-result :search-text="searchText"
+                   v-if="isResultShow" />
     <!-- 搜索结果 -->
 
     <!-- 联想建议 -->
-    <search-suggestion
-      v-else-if="searchText"
-      :search-text="searchText"
-      @search="onSearch"
-    />
+    <search-suggestion v-else-if="searchText"
+                       :search-text="searchText"
+                       @search="onSearch" />
     <!-- /联想建议 -->
 
     <!-- 历史记录 -->
-    <search-history
-      :search-histories="searchHistories"
-      @search="onSearch"
-      @update-histories="searchHistories = $event"
-      v-else
-    />
+    <search-history :search-histories="searchHistories"
+                    @search="onSearch"
+                    @update-histories="searchHistories = $event"
+                    v-else />
     <!-- /历史记录 -->
   </div>
 </template>
@@ -54,7 +49,7 @@ export default {
     SearchResult,
   },
   props: {},
-  data() {
+  data () {
     return {
       searchText: "",
       isResultShow: false,
@@ -63,14 +58,14 @@ export default {
   },
   computed: {},
   watch: {
-    searchHistories() {
+    searchHistories () {
       setItem("search-histories", this.searchHistories);
     },
   },
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    onSearch(searchText) {
+    onSearch (searchText) {
       this.searchText = searchText;
 
       const index = this.searchHistories.indexOf(searchText);
@@ -80,9 +75,10 @@ export default {
       this.searchHistories.unshift(searchText);
       this.isResultShow = true;
     },
-    onCancel() {
+    onCancel () {
       this.$router.back();
     },
+
   },
 };
 </script>
@@ -91,6 +87,9 @@ export default {
 .search-container {
   .van-search__action {
     color: #fff;
+  }
+  .van-search__action:active {
+    background-color: rgb(235, 82, 83);
   }
 }
 </style>

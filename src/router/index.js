@@ -38,13 +38,54 @@ const routes = [
     props: true
   },
   {
+    path: '/vote_deone/:tid',
+    name: 'vote_deone',
+    component: () => import('@/views/vote_deone'),
+    // 将路由动态参数映射到组件的 props 中，更推荐这种做法
+    props: true
+  },
+  {
+    path: '/team',
+    name: 'team',
+    component: () => import('@/views/team')
+  },
+  {
+    path: '/vote',
+    name: 'vote',
+    component: () => import('@/views/vote')
+  },
+  {
+    path: '/vote_de',
+    name: 'votede',
+    component: () => import('@/views/vote_de')
+  },
+  {
+    path: '/falist',
+    name: 'falist',
+    component: () => import('@/views/falist')
+  },
+  {
+    path: '/chatlist',
+    name: 'chatlist',
+    component: () => import('@/views/chat_list')
+  },
+  {
+    path: '/fee',
+    name: 'fee',
+    component: () => import('@/views/fee')
+  },
+  {
     path: '/',
     component: () => import('@/views/layout'),
     children: [
       {
         path: '',
         name: 'home',
-        component: () => import('@/views/home/')
+        component: () => import('@/views/home/'),
+        meta: {
+          keepAlive: true,
+          deepth: 1
+        }
       },
       {
         path: '/xt',
@@ -67,6 +108,27 @@ const routes = [
     path: '/user/chat',
     name: 'user-chat',
     component: () => import('@/views/user-chat'),
+  },
+  {
+    path: '/peopleevaluation',
+    name: 'peopleevaluation',
+    component: () => import('@/views/peopleevaluation'),
+  }, {
+    path: '/branchev',
+    name: 'branchev',
+    component: () => import('@/views/branchev'),
+  }, {
+    path: '/mutual',
+    name: 'mutual',
+    component: () => import('@/views/mutual')
+  }, {
+    path: '/myinfo',
+    name: 'myinfo',
+    component: () => import('@/views/myinfo')
+  }, {
+    path: '/processdata',
+    name: 'processdata',
+    component: () => import('@/views/processdata')
   }
 ]
 

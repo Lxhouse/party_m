@@ -1,56 +1,52 @@
 <template>
   <div class="article-container">
+
     <!--导航栏-->
-    <van-nav-bar
-      class="app-nav-bar"
-      title="文章详情"
-      left-arrow
-      @click-left="$router.back()"
-    />
+    <van-nav-bar class="app-nav-bar"
+                 title="文章详情"
+                 left-arrow
+                 @click-left="$router.back()" />
     <!--/导航栏-->
+
     <!-- 加载中 -->
     <!-- <div class="loading-wrap">
       <van-loading color="#3296fa" vertical>加载中</van-loading>
     </div> -->
     <!-- /加载中 -->
+
     <div class="article-wrap">
       <h1 class="title">{{ article.title }}</h1>
-      <van-cell center class="user-info">
-        <div slot="title" class="name">{{ article.autName }}</div>
-        <van-image
-          class="avatar"
-          slot="icon"
-          fit="cover"
-          round
-          :src="article.avatar"
-        />
-        <div slot="label" class="pubdate">
+      <van-cell center
+                class="user-info">
+        <div slot="title"
+             class="name">{{ article.autName }}</div>
+        <van-image class="avatar"
+                   slot="icon"
+                   fit="cover"
+                   round
+                   :src="article.avatar" />
+        <div slot="label"
+             class="pubdate">
           {{ article.pubdate | relativeTime }}
         </div>
-        <van-button
-          :type="article.is_followed ? 'default' : 'danger'"
-          round
-          class="follow-btn"
-          size="small"
-          :loading="isFollowedLoading"
-          @click="onFollow"
-          :icon="article.is_followed ? '' : 'plus'"
-          >{{ article.is_followed ? "已关注" : "关注" }}
+        <van-button :type="article.is_followed ? 'default' : 'danger'"
+                    round
+                    class="follow-btn"
+                    size="small"
+                    :loading="isFollowedLoading"
+                    @click="onFollow"
+                    :icon="article.is_followed ? '' : 'plus'">{{ article.is_followed ? "已关注" : "关注" }}
         </van-button>
       </van-cell>
-      <div
-        class="markdown-body"
-        v-html="article.content"
-        ref="article-content"
-      ></div>
+      <div class="markdown-body"
+           v-html="article.content"
+           ref="article-content"></div>
 
       <!--文章评论列表-->
-      <article-comment
-        @update-total-count="totalCommentCount = $event"
-        :list="commentList"
-        :source="articleId"
-        @reply-click="onReplyClick"
-      />
+      <article-comment @update-total-count="totalCommentCount = $event"
+                       :list="commentList"
+                       :source="articleId"
+                       @reply-click="onReplyClick" />
     </div>
     <!--/文章评论列表-->
 
@@ -71,44 +67,41 @@
 
     <!-- 底部区域 -->
     <div class="article-bottom">
-      <van-button
-        class="comment-btn"
-        @click="isPostShow = true"
-        type="default"
-        round
-        size="small"
-        >写评论</van-button
-      >
-      <van-icon name="comment-o" :badge="totalCommentCount" color="#777" />
-      <van-icon
-        :color="article.is_collected ? 'orange' : '#777'"
-        :name="article.is_collected ? 'star' : 'star-o'"
-        @click="onCollect"
-      />
-      <van-icon
-        :color="article.attitude ? 'pink' : '#777'"
-        :name="article.attitude ? 'good-job' : 'good-job-o'"
-        @click="onLike"
-      />
-      <van-icon name="share" color="#777777"></van-icon>
+      <van-button class="comment-btn"
+                  @click="isPostShow = true"
+                  type="default"
+                  round
+                  size="small">写评论</van-button>
+      <van-icon name="comment-o"
+                :badge="totalCommentCount"
+                color="#777" />
+      <van-icon :color="article.is_collected ? 'orange' : '#777'"
+                :name="article.is_collected ? 'star' : 'star-o'"
+                @click="onCollect" />
+      <van-icon :color="article.attitude ? 'pink' : '#777'"
+                :name="article.attitude ? 'good-job' : 'good-job-o'"
+                @click="onLike" />
+      <van-icon name="share"
+                color="#777777"></van-icon>
     </div>
     <!-- /底部区域 -->
 
     <!--发布评论-->
-    <van-popup v-model="isPostShow" position="bottom">
-      <post-comment @post-success="onPostSuccess" :target="articleId" />
+    <van-popup v-model="isPostShow"
+               position="bottom">
+      <post-comment @post-success="onPostSuccess"
+                    :target="articleId" />
     </van-popup>
     <!--/发布评论-->
 
     <!--评论回复-->
-    <van-popup v-model="isreplyShow" position="bottom">
-      <comment-reply
-        v-if="isreplyShow"
-        :comment="replyComment"
-        :source="articleId"
-        @close="isreplyShow = false"
-        :articleId="articleId"
-      />
+    <van-popup v-model="isreplyShow"
+               position="bottom">
+      <comment-reply v-if="isreplyShow"
+                     :comment="replyComment"
+                     :source="articleId"
+                     @close="isreplyShow = false"
+                     :articleId="articleId" />
     </van-popup>
     <!--评论回复-->
   </div>
@@ -140,7 +133,7 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       article: {},
       isFollowedLoading: false,
@@ -155,12 +148,12 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     this.loadArticle();
   },
-  mounted() {},
+  mounted () { },
   methods: {
-    async loadArticle() {
+    async loadArticle () {
       const { data } = await getArticlesbyid(this.articleId);
 
       this.article = data.data.data;
@@ -169,7 +162,7 @@ export default {
       });
     },
 
-    handlePerviewImage() {
+    handlePerviewImage () {
       const articleContent = this.$refs["article-content"];
       const imgs = articleContent.querySelectorAll("img");
 
@@ -184,13 +177,13 @@ export default {
         };
       });
     },
-    async onFollow() {
+    async onFollow () {
       this.isFollowedLoading = true;
       await getsetFollow(this.article.autId);
       this.article.is_followed = !this.article.is_followed;
       this.isFollowedLoading = false;
     },
-    async onCollect() {
+    async onCollect () {
       this.$toast.loading({
         message: "操作中...",
         forbidClick: true,
@@ -201,7 +194,7 @@ export default {
       this.isCollectionsLoading = false;
       this.$toast.success(`${this.article.is_collected ? "" : "取消"}收藏成功`);
     },
-    async onLike() {
+    async onLike () {
       this.$toast.loading({
         message: "操作中...",
         forbidClick: true,
@@ -212,13 +205,13 @@ export default {
       this.isLikingsLoading = false;
       this.$toast.success(`${this.article.attitude ? "" : "取消"}点赞成功`);
     },
-    onPostSuccess(comment) {
+    onPostSuccess (comment) {
       console.log(comment);
       this.commentList.unshift(comment);
       this.totalCommentCount++;
       this.isPostShow = false;
     },
-    onReplyClick(comment) {
+    onReplyClick (comment) {
       console.log(comment);
       this.replyComment = comment;
       this.isreplyShow = true;

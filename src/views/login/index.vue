@@ -1,47 +1,41 @@
 <template>
   <div class="login-container">
     <div class="top-wrap">
-      <img class="logo-top" src="../../../public/img/logo2.png" />
+      <img class="logo-top"
+           src="../../../public/img/logo2.png" />
     </div>
     <div class="body-wrap">
-      <van-form
-        class="from-input-wrap"
-        @submit="onLogin"
-        @failed="onFailed"
-        validate-first
-        :show-error="false"
-        :show-error-message="false"
-      >
-        <van-field
-          v-model="member.mobile"
-          clearable
-          label="+86"
-          icon-prefix="party"
-          left-icon="shouji1"
-          center
-          placeholder="请输入手机号"
-          :rules="formRules.mobile"
-        />
-        <van-field
-          v-model="member.password"
-          type="password"
-          clearable
-          label="密码"
-          icon-prefix="party"
-          left-icon="mima"
-          center
-          placeholder="请输入密码"
-          :rules="formRules.password"
-        />
+      <van-form class="from-input-wrap"
+                @submit="onLogin"
+                @failed="onFailed"
+                validate-first
+                :show-error="false"
+                :show-error-message="false">
+        <van-field v-model="member.mobile"
+                   clearable
+                   label="+86"
+                   icon-prefix="party"
+                   left-icon="shouji1"
+                   center
+                   placeholder="请输入手机号"
+                   :rules="formRules.mobile" />
+        <van-field v-model="member.password"
+                   type="password"
+                   clearable
+                   label="密码"
+                   icon-prefix="party"
+                   left-icon="mima"
+                   center
+                   placeholder="请输入密码"
+                   :rules="formRules.password" />
         <div class="login-btn-wrap">
-          <van-button class="login-btn" type="danger" block>登录</van-button>
-          <van-button
-            class="login-btn"
-            type="default"
-            block
-            @click.prevent="gorregister"
-            >新用户注册</van-button
-          >
+          <van-button class="login-btn"
+                      type="danger"
+                      block>登录</van-button>
+          <van-button class="login-btn"
+                      type="default"
+                      block
+                      @click.prevent="gorregister">新用户注册</van-button>
         </div>
       </van-form>
     </div>
@@ -63,7 +57,7 @@ export default {
   name: "LoginIndex",
   components: {},
   props: {},
-  data() {
+  data () {
     return {
       member: {
         mobile: "13702020202",
@@ -80,10 +74,10 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    async onLogin() {
+    async onLogin () {
       Toast.loading({
         message: "登录中...",
         forbidClick: true,
@@ -98,17 +92,17 @@ export default {
       if (data.success == true) {
         Toast.success("登录成功");
         this.$store.commit("setUser", data.data);
-        this.$router.push({ path: "/my" });
+        this.$router.push({ path: "/" });
       } else {
         Toast.fail("登录失败,请检查账号密码");
       }
     },
-    onFailed(error) {
+    onFailed (error) {
       if (error.errors[0]) {
         Toast({ message: error.errors[0].message, position: "top" });
       }
     },
-    gorregister() {
+    gorregister () {
       this.$router.push({ path: "/register" });
     },
   },

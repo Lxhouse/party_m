@@ -1,16 +1,13 @@
 <template>
   <div class="search-result">
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
-      <van-cell
-        v-for="(article, index) in list"
-        :key="index"
-        :title="article.title"
-      />
+    <van-list v-model="loading"
+              :finished="finished"
+              finished-text="没有更多了"
+              @load="onLoad">
+      <van-cell v-for="(article, index) in list"
+                :key="index"
+                @click="toact(article.artId)"
+                :title="article.title" />
     </van-list>
   </div>
 </template>
@@ -27,7 +24,7 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       list: [],
       loading: false,
@@ -38,10 +35,14 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    async onLoad() {
+    toact (aid) {
+      // console.log(aid)
+      this.$router.replace({ path: '/article/' + aid });
+    },
+    async onLoad () {
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
       const { data } = await getSearchResult({

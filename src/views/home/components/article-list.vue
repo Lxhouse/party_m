@@ -1,23 +1,18 @@
 <template>
   <div class="article-list">
-    <van-pull-refresh
-      v-model="isRefreshLoading"
-      :success-text="refreshSuccessText"
-      :success-duration="1500"
-      @refresh="onRefresh"
-    >
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-      >
-    
-        <article-item
-          v-for="(article, index) in articles"
-          :key="index"
-          :article="article"
-        ></article-item>
+    <van-pull-refresh v-model="isRefreshLoading"
+                      :success-text="refreshSuccessText"
+                      :success-duration="1500"
+                      @refresh="onRefresh">
+      <van-list v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad">
+
+        <article-item v-for="(article, index) in articles"
+                      :key="index"
+                      :article="article"></article-item>
+
       </van-list>
     </van-pull-refresh>
   </div>
@@ -37,7 +32,7 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {
       articles: [], // 数据列表
       loading: false, // 控制加载中的 loading 状态
@@ -49,18 +44,19 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    async onLoad() {
-      console.log("onLoad");
+    async onLoad () {
+      // this.loading = true;
+      // console.log("onLoad");
       // 1. 请求获取数据
       const { data } = await getArticles({
         channel_id: this.channel.id, // 频道 ID
         pagenum: this.pagenum,
       });
 
-      console.log(data);
+      // console.log(data);
 
       // 2. 把数据放到 list 数组中
       const { results } = data.data;
@@ -81,7 +77,7 @@ export default {
         this.finished = true;
       }
     },
-    async onRefresh() {
+    async onRefresh () {
       // 下拉刷新，组件自己就会展示 loading 状态
       // 1. 请求获取数据
       const { data } = await getArticles({

@@ -1,24 +1,24 @@
 <template>
-  <van-cell
-    class="article-item"
-    :to="{
+  <van-cell class="article-item"
+            :to="{
       name:'article',
       params:{
         articleId:article.artId
       }
-   }"
-  >
-    <div slot="title" class="title van-multi-ellipsis--l3">
+   }">
+    <div slot="title"
+         class="title van-multi-ellipsis--l3">
       {{ article.title }}
     </div>
     <div slot="label">
-      <div v-if="article.cover.type === 3" class="cover-wrap">
-        <div
-          class="cover-wrap-item"
-          v-for="(img, index) in article.cover.images"
-          :key="index"
-        >
-          <van-image class="cover-image" fit="cover" :src="img" />
+      <div v-if="article.cover.type === 3"
+           class="cover-wrap">
+        <div class="cover-wrap-item"
+             v-for="(img, index) in article.cover.images"
+             :key="index">
+          <van-image class="cover-image"
+                     fit="cover"
+                     :src="img" />
         </div>
       </div>
       <div class="label-wrap">
@@ -28,12 +28,10 @@
       </div>
     </div>
     <!-- 默认插槽的名字叫default，可以省略 -->
-    <van-image
-      v-if="article.cover.type === 1"
-      class="right-cover"
-      fit="cover"
-      :src="article.cover.images[0]"
-    />
+    <van-image v-if="article.cover.type === 1"
+               class="right-cover"
+               fit="cover"
+               :src="article.cover.images[0]" />
   </van-cell>
 </template>
 
@@ -47,13 +45,13 @@ export default {
       required: true,
     },
   },
-  data() {
+  data () {
     return {};
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {},
 };
 </script>

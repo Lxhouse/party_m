@@ -2,82 +2,111 @@
   <div class="home-container">
     <!-- 导航栏 -->
     <van-nav-bar class="app-nav-bar">
-      <img slot="left" class="left-img" src="../../../public/img/logo3.png" />
-      <van-button
-        slot="right"
-        class="search-btn"
-        icon="search"
-        type="info"
-        round
-        size="small"
-        to="/search"
-        >搜索</van-button
-      >
+      <img slot="left"
+           class="left-img"
+           src="../../../public/img/logo3.png" />
+      <van-button slot="right"
+                  class="search-btn"
+                  icon="search"
+                  type="info"
+                  round
+                  size="small"
+                  to="/search">搜索</van-button>
     </van-nav-bar>
     <!-- /导航栏 -->
 
     <!-- 文章频道列表 -->
-    <van-tabs class="channel-tabs" v-model="active" swipeable>
-      <van-tab
-        :title="channel.tabname"
-        v-for="channel in channels"
-        :key="channel.id"
-      >
+    <van-tabs class="channel-tabs"
+              v-model="active"
+              swipeable>
+
+      <van-tab :title="channel.tabname"
+               v-for="channel in channels"
+               :key="channel.id">
+
         <!--文章列表-->
-        <article-list :channel="channel" />
+        <van-skeleton title
+                      :loading="loading"
+                      :row="20">
+          <article-list :channel="channel" />
+        </van-skeleton>
         <!--文章列表-->
       </van-tab>
-      <div slot="nav-right" class="wap-nav-placehodler"></div>
-      <div
-        slot="nav-right"
-        @click="isChannelEditShow = true"
-        class="wap-nav-wrap"
-      >
+
+      <!--频道编辑-->
+      <div slot="nav-right"
+           class="wap-nav-placehodler"></div>
+      <div slot="nav-right"
+           @click="isChannelEditShow = true"
+           class="wap-nav-wrap">
         <van-icon name="wap-nav" />
       </div>
+      <!--/频道编辑-->
+
     </van-tabs>
     <!-- /文章频道列表 -->
-    <van-popup
-      v-model="isChannelEditShow"
-      position="bottom"
-      class="channel-edit-popup"
-      closeable
-      close-icon-position="top-left"
-      get-container="body"
-      style="height: 100%"
-    >
-      <channel-edit
-        :userChannel="channels"
-        :active="active"
-        @close="isChannelEditShow = false"
-        @update-active="active = $event"
-    /></van-popup>
+
+    <!--弹出频道编辑-->
+    <van-popup v-model="isChannelEditShow"
+               position="bottom"
+               class="channel-edit-popup"
+               closeable
+               close-icon-position="top-left"
+               get-container="body"
+               style="height: 100%">
+      <channel-edit :userChannel="channels"
+                    :active="active"
+                    @close="isChannelEditShow = false"
+                    @update-active="active = $event" />
+    </van-popup>
+    <!--/弹出频道编辑-->
   </div>
 </template>
 
 <script>
-import { getUserChannels} from "@/api/article";
+import { getUserChannels } from "@/api/article";
 import ArticleList from "./components/article-list";
 import ChannelEdit from "./components/channel-edit";
 export default {
   name: "HomeIndex",
   components: { ArticleList, ChannelEdit },
   props: {},
-  data() {
+  data () {
     return {
       active: 0, // 控制被激活的标签
       channels: {},
       isChannelEditShow: false,
+      loading: true,
+      images: [
+        'https://img01.yzcdn.cn/vant/apple-1.jpg',
+        'https://img01.yzcdn.cn/vant/apple-2.jpg',
+      ],
     };
   },
   computed: {},
-  watch: {},
-  created() {
+  watch: {
+    // $route (to, from) {
+    //   // 如果要to(进入)的页面是需要keepAlive缓存的，把name push进include数组中
+    //   if (to.meta.keepAlive) {
+    //     !this.include.includes(to.name) && this.include.push(to.name);
+    //   }
+    //   // 如果 要 form(离开) 的页面是 keepAlive缓存的，
+    //   // 再根据 deepth 来判断是前进还是后退
+    //   // 如果是后退：
+    //   if (from.meta.keepAlive && to.meta.deepth < from.meta.deepth) {
+    //     const index = this.include.indexOf(from.name);
+    //     index !== -1 && this.include.splice(index, 1);
+    //   }
+    // }
+  },
+  created () {
     this.loadChannels();
   },
-  mounted() {},
+  mounted () {
+    this.loading = false
+  },
   methods: {
-    async loadChannels() {
+    async loadChannels () {
       const { data } = await getUserChannels();
       this.channels = data.data.channels;
     },
@@ -102,8 +131,8 @@ export default {
   }
 }
 .left-img {
-  width: 60%;
-  height: 80%;
+  width: 50%;
+  height: 76%;
   margin: 8px;
 }
 .home-container {
