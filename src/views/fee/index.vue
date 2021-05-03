@@ -16,7 +16,8 @@
                     is-link
                     center
                     :label="item.banchName"
-                    :value="siu(item)">
+                    :value="siu(item)"
+                    @click="$router.push('/pay?orderNo=' +item.orderNo.toString())">
             <template #title>
               <span class="custom-title">{{item.year}}年{{item.month}}月</span>
               <van-tag type="danger">待缴纳</van-tag>
@@ -36,7 +37,7 @@
                     :value="siu(item)">
             <template #title>
               <span class="custom-title">{{item.year}}年{{item.month}}月</span>
-              <van-tag type="success">待缴纳</van-tag>
+              <van-tag type="success">已缴纳</van-tag>
             </template>
           </van-cell>
 
@@ -69,6 +70,9 @@ export default {
   },
   mounted () { },
   methods: {
+    // topsy (item) {
+    //   this.$router.push({ path: '/pay/' + item.orderNo })
+    // },
     siu (item) {
       this.fee = "金额:" + item.totalFee + "元";
       return this.fee
@@ -79,7 +83,7 @@ export default {
           this.$toast('您尚未加入党组织！');//轻提示
           //this.isshow = true
         } else {
-          console.log(result.data.data.result)
+          // console.log(result.data.data.result)
           this.paylist = result.data.data.result;
         }
       })

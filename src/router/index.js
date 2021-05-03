@@ -129,6 +129,10 @@ const routes = [
     path: '/processdata',
     name: 'processdata',
     component: () => import('@/views/processdata')
+  }, {
+    path: '/pay',
+    name: 'pay',
+    component: () => import('@/views/pay')
   }
 ]
 

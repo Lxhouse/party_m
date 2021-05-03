@@ -8,6 +8,9 @@ import 'vant/lib/index.css'
 import 'amfe-flexible'
 import './utils/day.js'
 import VueSocketIO from 'vue-socket.io'
+import VueQriously from 'vue-qriously'
+
+Vue.use(VueQriously)
 Vue.use(Vant)
 
 Vue.config.productionTip = false
@@ -21,8 +24,8 @@ Vue.use(new VueSocketIO({
   //     mutationPrefix: 'SOCKET_'
   // },
   // options: { path: "/my-app/" } //Optional options
-  options:{
-    autoConnect: false  
+  options: {
+    autoConnect: false
   },
 }))
 new Vue({

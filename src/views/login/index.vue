@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="top-wrap">
       <img class="logo-top"
-           src="../../../public/img/logo2.png" />
+           src="../../../public/img/logo2.svg" />
     </div>
     <div class="body-wrap">
       <van-form class="from-input-wrap"

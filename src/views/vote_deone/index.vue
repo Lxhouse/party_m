@@ -109,7 +109,7 @@ export default {
     async submit () {
       let _this = this;
       // console.log(_this.dopts)
-      if (_this.dopts.length == 0) {
+      if (_this.dopts.length == 0 && this.dopt == null ) {
         this.$toast.fail("请投票！");
       } else {
         // debugger

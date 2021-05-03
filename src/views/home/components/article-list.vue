@@ -82,17 +82,19 @@ export default {
       // 1. 请求获取数据
       const { data } = await getArticles({
         channel_id: this.channel.id, // 频道 ID
-        pagenum: this.pagenum + 2, // 为了大家方便学习，只要你传递不同的时间戳就一定给你返回不一样的数据，而且数据不为空
+        pagenum: this.pagenum, // 为了大家方便学习，只要你传递不同的时间戳就一定给你返回不一样的数据，而且数据不为空
       });
-
+      // console.log(data)
       // 2. 把数据放到数据列表中（往顶部追加）
       const { results } = data.data;
-      this.articles.unshift(...results);
+      // this.articles.unshift(...results);
+      let leng = this.articles.length;
+      this.articles = results;
 
       // 3. 关闭刷新的状态 loading
       this.isRefreshLoading = false;
 
-      this.refreshSuccessText = `更新了${results.length}条数据`;
+      this.refreshSuccessText = `更新了${results.length - leng}条数据`;
     },
   },
 };

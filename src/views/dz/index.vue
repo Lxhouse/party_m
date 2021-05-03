@@ -66,16 +66,16 @@
                   icon="zuzhi" />
       </van-cell-group>
       <van-grid direction="horizontal"
-                :column-num="2">
+                :column-num="1">
         <van-grid-item icon-prefix="party"
                        icon="dangfeishoujiao"
                        text="党费缴纳"
                        class="fontred"
                        to="/fee" />
-        <van-grid-item icon-prefix="party"
+        <!-- <van-grid-item icon-prefix="party"
                        icon="kaizhantanxintanhua"
                        text="谈心谈话"
-                       class="fontred" />
+                       class="fontred" /> -->
 
       </van-grid>
       <!--/党内生活-->

@@ -77,4 +77,33 @@ export const isjiana = () => {
     url: 'http://localhost:9003/orpersonnel/payment/isjiana',
   })
 }
+// //生成二维码的方法
+// export createNatvie(orderNo) {
+//   return request({
+//     url: '/eduorder/paylog/createNative/'+orderNo,
+//     method: 'get'
+//   })
+// }
 
+// //查询订单状态的方法
+// //生成二维码的方法
+// export const queryPayStatus=(orderNo) =>{
+//   return request({
+//     method: 'GET',
+//     url: '/eduorder/paylog/queryPayStatus/'+orderNo  
+//   })
+// }
+//生成二维码的方法
+export const createNatvie = orderNo => {
+  return request({
+    method: 'GET',
+    url: `http://localhost:9003/orpersonnel/payment/createNative/${orderNo}`,
+  })
+}
+//生成二维码的方法
+export const queryPayStatus = orderNo => {
+  return request({
+    method: 'GET',
+    url: `http://localhost:9003/orpersonnel/payment/queryPayStatus/${orderNo}`,
+  })
+}

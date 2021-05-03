@@ -91,6 +91,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { getUserInfo, getMemberInfoall } from "@/api/user";
 export default {
   name: "MyIndex",
   components: {},
